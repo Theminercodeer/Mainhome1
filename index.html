@@ -1,26 +1,32 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-#bdy {
-	border: 4px solid Green;
-	margin-top: 20px
-}
-.crkbtn {
-	margin: 0;
-	width: 20px;
-	border: 1px solid red;
-	padding: 0 auto;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#222222" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Mini Browser</title>
 </head>
+<body>
+  <h1>Mini Browser PWA</h1>
+  <input type="text" id="urlInput" placeholder="Enter URL (https://...)" />
+  <button onclick="loadURL()">Go</button>
+  <div id="frameContainer">
+    <iframe id="webFrame" sandbox="allow-scripts allow-forms allow-same-origin"></iframe>
+  </div>
 
-<!--style="border: 1px; border: 4px solid Green; margin-top: 20px"-->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
 
-<body >
-<iframe src="https://www.crunchyroll.com" style="width:100%; height:100vh;"></iframe>
+    function loadURL() {
+      const url = document.getElementById('urlInput').value;
+      const frame = document.getElementById('webFrame');
+      if (!url.startsWith('http')) return alert("Enter full URL like https://example.com");
+      frame.src = url;
+    }
+  </script>
 </body>
-
-
-
 </html>
